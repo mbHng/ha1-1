@@ -92,10 +92,13 @@ public class Calculator {
      * Seite hinzu und aktualisiert den Bildschirm. Daraufhin eingegebene Zahlen werden rechts vom
      * Trennzeichen angegeben und daher als Dezimalziffern interpretiert.
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
+     *
+     * Bug-Fix: Wenn der Bildschirm leer ist und als erstes auf die 0. drückt so wird 0. angezeigt
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
-    }
+        if(!screen.contains( ".")) screen = screen + ".";
+        }
+
 
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
@@ -125,8 +128,10 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+        latestValue  = result;
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
+        if(screen.equals("NaN")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }

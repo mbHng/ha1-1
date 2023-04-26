@@ -90,5 +90,92 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after getting the multiplication 20 and 5")
+    void testmultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "100";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+    @Test
+    @DisplayName("should display result after getting the multiplication via enter-key")
+    void TestOpertationEqualsKey(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "256";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+    }
+
+        @Test
+        @DisplayName("should display value on screen starting with 0 and a decimal point")
+        void testDecimalDots() {
+            Calculator calc = new Calculator();
+
+            calc.pressDotKey();
+            calc.pressDigitKey(7);
+
+            String expected = "0.7";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+        }
+
+
+    @Test
+    @DisplayName("should display value on screen via pressing multiple times the %-key")
+    void testPercent() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressUnaryOperationKey("%");
+        calc.pressUnaryOperationKey("%");
+
+
+
+
+        String expected = "1.0E-4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display error message when zero is divided by zero")
+    void TestZeroDivisionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
